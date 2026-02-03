@@ -9,7 +9,7 @@ execute:
 ---
 
 
-**NAMES:** Add names here  
+**NAMES:** Balam and Brooklynn  
 
 
 ```{r}
@@ -89,8 +89,12 @@ Using the above, we can complete the following 5 steps within a few lines of cod
 If you want to look at `my_symbols` click on it under the Environment Tab in the top right panel.  
 
 ```{r}
-#| label: add-label-1
-# add comment here
+#| label: find symbols
+# finds all symbols in data frame
+y_symbols <- tibble(symbols = c(lower_case, 
+                                 upper_case, 
+                                 punctuation)) |> 
+              mutate(num = row_number()) 
 
 
 ```
@@ -122,10 +126,17 @@ By altering this top secret set of numbers, you will be able to create a message
 9.  Square every number.
 
 ```{r}
-#| label: add-label-2
-#add comment here
-#there are several ways to do this, the way below doesn't overwrite any column so you "don't lose work"
+#| label: alters top-secret numbers
+#adds 14, multiplies 18, subtracts 257, and sqquares every number 
 
+code_break <- top_secret |> 
+  as_tibble() |> 
+  mutate(step6 = top_secret + 14,
+         step7 = step6*18 - 257,
+         step8 = exp(step7),
+         step9 = step8^2)
+
+head(code_break) #see the first few lines here
 
 
 ```
@@ -137,7 +148,8 @@ By altering this top secret set of numbers, you will be able to create a message
 ```{r}
 #| label: add-label-3
 #add comment here
-
+code_break |>
+  summarise(total=sum(step9<17))
 
 
 ```
